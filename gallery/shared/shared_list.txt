@@ -1,5 +1,0 @@
-compare area.json
-line2area2bar.json
-P1 Stacked Area Chart.json
-P2 Stacked Area Chart.json
-P3 Stacked Area Chart.json
