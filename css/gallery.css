@@ -51,10 +51,10 @@ body {
     color: #fff;
 }
 
-#dark-mode-toggle::before {
+/* #dark-mode-toggle::before {
     content: '🌞';
     font-size: 1.1rem;
-}
+} */
 
 /* Dark mode 样式 */
 body.dark-mode .navbar {
@@ -76,9 +76,9 @@ body.dark-mode #dark-mode-toggle:hover {
     color: #1a1a1a;
 }
 
-body.dark-mode #dark-mode-toggle::before {
+/* body.dark-mode #dark-mode-toggle::before {
     content: '🌙';
-}
+} */
 
 .navbar {
     background-color: #ffffff;
@@ -279,7 +279,7 @@ body.dark-mode {
 }
 
 .dark-mode .preview {
-    background: #444;
+    background: e8e8e8;
 }
 
 .dark-mode .item-title {

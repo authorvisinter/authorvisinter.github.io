@@ -38,7 +38,7 @@
 		server_position = ""
 
 		let file_name = window.location.href.toString().split("?")[1]
-		let file_url = "shared/chart/" + file_name + ".json"
+		let file_url = "./shared/chart/" + file_name + ".json"
 
 		console.log(file_url)
 
@@ -52,7 +52,7 @@
 
 		if (json_string !== null) {
 
-			file_url = "shared/chart/" + json_string + ".json"
+			file_url = "./shared/chart/" + json_string + ".json"
 
 			d3.json(file_url)
 				.then(function (data) {
@@ -68,7 +68,7 @@
 					}
 				})
 				.catch(function () {
-					d3.json("shared/chart/current.json")
+					d3.json("./shared/chart/current.json")
 						.then(function (data) {
 							console.log("We open the old file")
 							let canvas = new canvas_main(data)
@@ -83,7 +83,7 @@
 					let canvas = new canvas_main(data)
 				})
 				.catch(function () {
-					d3.json("shared/chart/current.json")
+					d3.json("./shared/chart/current.json")
 						.then(function (data) {
 							console.log("We open the old file")
 							let canvas = new canvas_main(data)
@@ -110,7 +110,7 @@
 		document.addEventListener("DOMContentLoaded", updateHeight);
 		window.addEventListener("resize", updateHeight);
 
-		let interaction_url = "shared/interaction/" + file_name + ".json"
+		let interaction_url = "./shared/interaction/" + file_name + ".json"
 		console.log("interaction url", interaction_url);
 		d3.json(interaction_url)
 			.then(function (data) {

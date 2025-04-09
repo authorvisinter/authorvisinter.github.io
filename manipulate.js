@@ -823,73 +823,76 @@ function activateInteraction(parsedJson){
 
 function buttonCreation({behavior, by, color, chart}) {
   console.log("Button Creation");
-
-  let mainRect = document.querySelector(".mainrect");
-
-  if (!mainRect) {
+  let mainRect
+  setTimeout(() => {
+    mainRect= document.querySelector(".mainrect");
+    if (!mainRect) {
       console.error("Error: No element found with class 'mainrect'");
       return;
-  }
+    }
 
-  let button = document.querySelector(".interaction-button");
+    let button = document.querySelector(".interaction-button");
 
-  if (!button) {
-    button = document.createElement("button");
-    button.className = "interaction-button";
-    button.id = "interaction-button";
-    button.innerText = behavior;
-    button.style.left = (mainRect.getBoundingClientRect().right - 90) + "px"; // 오른쪽에 배치
-    button.style.top = (mainRect.getBoundingClientRect().bottom - 50) + "px"; // 같은 높이로 정렬
-    document.body.appendChild(button);
-    makeDraggable(button);
-  }
+    if (!button) {
+      button = document.createElement("button");
+      button.className = "interaction-button";
+      button.id = "interaction-button";
+      button.innerText = behavior;
+      button.style.left = (mainRect.getBoundingClientRect().right - 90) + "px"; // 오른쪽에 배치
+      button.style.top = (mainRect.getBoundingClientRect().bottom - 50) + "px"; // 같은 높이로 정렬
+      document.body.appendChild(button);
+      makeDraggable(button);
+    }
 
-  if (behavior === "remove") {
-    if (by === "color") {
-      console.log("BUTTON - REMOVE COLOR");
-      button.addEventListener("click", function () {
-        _chart_object[0].CoordSys.forEach(coordSys => {
-          coordSys.deactivate_visual_object(find_element_by_color(color));
-        });
-      });
-    } else if (by === "unselected") {
-      console.log("BUTTON - REMOVE UNSELECTED AREA");
-      button.addEventListener("click", function () {
-        _chart_object[0].CoordSys.forEach(coordSys => {
-          let selected_idx = [];
-          coordSys.visual_object.forEach((vo, idx) => {
-            if (vo.selected === false) {
-              selected_idx.push(idx);
-            }
+    if (behavior === "remove") {
+      if (by === "color") {
+        console.log("BUTTON - REMOVE COLOR");
+        button.addEventListener("click", function () {
+          _chart_object[0].CoordSys.forEach(coordSys => {
+            coordSys.deactivate_visual_object(find_element_by_color(color));
           });
-          coordSys.deactivate_visual_object_group(selected_idx);
         });
-      });
-    }
-  } else if (behavior === "resort") {
-    if(chart === "bar"){
-      button.addEventListener("click", function (e) {
-        _chart_object[0].CoordSys[_chart_object[0].CoordSys.length - 1].x_axis.sorted_axis(e, by);
-      });
-    } else if (chart === "stacked area"){
+      } else if (by === "unselected") {
+        console.log("BUTTON - REMOVE UNSELECTED AREA");
+        button.addEventListener("click", function () {
+          _chart_object[0].CoordSys.forEach(coordSys => {
+            let selected_idx = [];
+            coordSys.visual_object.forEach((vo, idx) => {
+              if (vo.selected === false) {
+                selected_idx.push(idx);
+              }
+            });
+            coordSys.deactivate_visual_object_group(selected_idx);
+          });
+        });
+      }
+    } else if (behavior === "resort") {
+      if(chart === "bar"){
+        button.addEventListener("click", function (e) {
+          _chart_object[0].CoordSys[_chart_object[0].CoordSys.length - 1].x_axis.sorted_axis(e, by);
+        });
+      } else if (chart === "stacked area"){
+        button.addEventListener("click", function () {
+          _chart_object[0].CoordSys.forEach(coordSys => {
+            coordSys.resort_stacked_area_chart(by);
+          });
+        });
+      }
+    } else if (behavior === "overlap") {
+      button.innerText = "compare";
       button.addEventListener("click", function () {
         _chart_object[0].CoordSys.forEach(coordSys => {
-          coordSys.resort_stacked_area_chart(by);
+          coordSys.overlap(_chart_object[0], _chart_object[0].content_group);
         });
       });
-    }
-  } else if (behavior === "overlap") {
-    button.innerText = "compare";
-    button.addEventListener("click", function () {
-      _chart_object[0].CoordSys.forEach(coordSys => {
-        coordSys.overlap(_chart_object[0], _chart_object[0].content_group);
+    } else if (behavior === "rescale") {
+      button.addEventListener("click", function () {
+        setTimeout(() => {
+          auto_change_quantitative_scale(_chart_object[0], by);
+        }, 3000);
       });
-    });
-  } else if (behavior === "rescale") {
-    button.addEventListener("click", function () {
-      auto_change_quantitative_scale(_chart_object[0], by);
-    });
-  }
+    }
+  }, 2000);
 }
 
 function reencodeButton(by, parameter) {
