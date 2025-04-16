@@ -16,7 +16,7 @@
 <body>
     <nav class="navbar">
         <h1>Interaction Authoring Gallery</h1>
-        <button id="dark-mode-toggle">Theme</button>
+        <!-- <button id="dark-mode-toggle">Theme</button> -->
     </nav>
 
 
@@ -25,23 +25,23 @@
     </div>
     <script>
 
-        const darkModeToggle = document.getElementById("dark-mode-toggle");
+        // const darkModeToggle = document.getElementById("dark-mode-toggle");
 
-        // 读取本地存储并设置模式
-        if (localStorage.getItem("dark-mode") === "enabled") {
-            document.body.classList.add("dark-mode");
-        }
+        // // 读取本地存储并设置模式
+        // if (localStorage.getItem("dark-mode") === "enabled") {
+        //     document.body.classList.add("dark-mode");
+        // }
 
-        // 监听点击事件切换模式
-        darkModeToggle.addEventListener("click", () => {
-            document.body.classList.toggle("dark-mode");
+        // // 监听点击事件切换模式
+        // darkModeToggle.addEventListener("click", () => {
+        //     document.body.classList.toggle("dark-mode");
 
-            if (document.body.classList.contains("dark-mode")) {
-                localStorage.setItem("dark-mode", "enabled");
-            } else {
-                localStorage.removeItem("dark-mode");
-            }
-        });
+        //     if (document.body.classList.contains("dark-mode")) {
+        //         localStorage.setItem("dark-mode", "enabled");
+        //     } else {
+        //         localStorage.removeItem("dark-mode");
+        //     }
+        // });
 
         document.addEventListener("DOMContentLoaded", function () {
             const files = new Set();
